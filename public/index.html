@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+  <meta content="mobile_stack" name="shell-type"/>
+  <title>NotesHub - View & Download Notes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-surface-variant": "#434655", "on-error": "#ffffff", "surface": "#f8f9ff", "tertiary-container": "#006a48",
+            "on-secondary": "#ffffff", "surface-container": "#e5eeff", "secondary-fixed": "#dae2fd", "inverse-primary": "#b7c4ff",
+            "surface-container-low": "#eff4ff", "surface-container-highest": "#d3e4fe", "on-background": "#0b1c30",
+            "surface-variant": "#d3e4fe", "on-primary": "#ffffff", "on-secondary-fixed": "#131b2e", "on-secondary-container": "#5c647a",
+            "inverse-on-surface": "#eaf1ff", "background": "#f8f9ff", "on-tertiary-container": "#60eeb1", "primary-fixed": "#dce1ff",
+            "primary": "#0037b0", "surface-dim": "#cbdbf5", "tertiary": "#004f35", "on-tertiary": "#ffffff", "primary-fixed-dim": "#b7c4ff",
+            "secondary-container": "#dae2fd", "tertiary-fixed": "#6ffbbe", "surface-bright": "#f8f9ff", "on-tertiary-fixed": "#002113",
+            "on-tertiary-fixed-variant": "#005236", "error": "#ba1a1a", "surface-container-high": "#dce9ff", "outline-variant": "#c4c5d7",
+            "secondary-fixed-dim": "#bec6e0", "on-primary-fixed-variant": "#0039b5", "outline": "#747686", "surface-tint": "#2151da",
+            "error-container": "#ffdad6", "inverse-surface": "#213145", "secondary": "#565e74", "on-primary-fixed": "#001551",
+            "on-surface": "#0b1c30", "tertiary-fixed-dim": "#4edea3", "surface-container-lowest": "#ffffff", "on-secondary-fixed-variant": "#3f465c",
+            "on-error-container": "#93000a", "primary-container": "#1d4ed8", "on-primary-container": "#cad3ff"
+          },
+          "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+          "spacing": { "gutter-mobile": "1rem", "margin": "2rem", "space-xs": "0.25rem", "space-xl": "2.5rem", "space-lg": "1.5rem", "space-sm": "0.5rem", "space-md": "1rem", "gutter": "1.5rem", "margin-mobile": "1rem" },
+          "fontFamily": {
+            "display-lg-mobile": ["Plus Jakarta Sans"], "label-lg": ["Inter"], "headline-lg": ["Plus Jakarta Sans"], "body-md": ["Inter"],
+            "label-sm": ["Inter"], "body-sm": ["Inter"], "body-lg": ["Inter"], "headline-md": ["Plus Jakarta Sans"], "display-lg": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"], "label-md": ["Inter"], "headline-sm": ["Plus Jakarta Sans"]
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    @layer base {
+      html, body { width: 100vw; margin: 0; padding: 0; min-height: 100%; }
+      body { overscroll-behavior: none; background-color: #f8f9ff; }
+      .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }
+      .pt-safe { padding-top: env(safe-area-inset-top, 0px); }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+</head>
+<body class="bg-surface font-body-md text-body-md text-on-surface flex flex-col min-h-screen">
+
+  <!-- Header matching Stitch layout -->
+  <header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe">
+    <div class="h-16 px-gutter-mobile flex items-center justify-between gap-space-xs max-w-5xl mx-auto w-full">
+      <div class="flex items-center gap-space-xs min-w-0">
+        <a class="flex items-center shrink-0" href="index.html">
+          <img alt="NotesHub Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1UErjy_24ZXuord1A9-Fm75d1SWFjEKHGC8N3MyNhc8AR-wlDyxHdfDkMRMbHm-PnaWVeGVXE208SWIPEjHTncNi4Uepx2_ZskUh7TLprMXqJ9-pChWL3lcDTvsJpXn0-byBdK2PTYF6Uv11_MakTb5XoLI07OwnmYsS4gvLDGnjy7lCa8ybodN6f2kUNcNgJGXUrTOEDBGB3i5PiBIWHWWwuB_x-DPQhnb2vddXUz_kxp9ms3hU7tC8Q"/>
+        </a>
+        <h1 class="font-headline-sm text-headline-sm text-on-surface font-semibold truncate pl-space-xs">NotesHub</h1>
+      </div>
+      
+      <!-- Right corner: Teacher page trigger -->
+      <div class="flex items-center gap-space-xs shrink-0">
+        <a class="min-h-[44px] px-space-md py-space-xs rounded-full bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md transition-colors flex items-center justify-center gap-1 shadow-sm" href="upload.html">
+          <span class="material-symbols-outlined text-[18px]">upload</span> Teacher
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Body Content -->
+  <main class="flex flex-col relative w-full pt-20 pb-safe bg-surface min-h-screen">
+    <div class="flex flex-col w-full px-gutter-mobile py-space-md max-w-5xl mx-auto space-y-space-md">
+      
+      <!-- Hero Banner -->
+      <section class="flex flex-col space-y-space-xs">
+        <div class="flex items-center gap-space-xs">
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-fixed-variant font-label-sm text-label-sm font-semibold">
+            <span class="material-symbols-outlined text-[14px]">school</span> Student Repository
+          </span>
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+            <span class="w-1.5 h-1.5 rounded-full bg-tertiary-container animate-pulse"></span> Offline Download Ready
+          </span>
+        </div>
+        <h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-semibold tracking-tight">Browse &amp; Download Notes</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant">Instant access to university syllabus, lecture notes, and question banks. No account required.</p>
+      </section>
+
+      <!-- Search and Filter bar -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-space-xs">
+        <div class="sm:col-span-2 relative">
+          <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+          <input class="w-full min-h-[48px] pl-10 pr-3.5 rounded-xl bg-surface-container-lowest border border-surface-container-high text-on-surface placeholder:text-on-surface-variant/60 font-body-md focus:outline-none focus:ring-2 focus:ring-primary shadow-sm" id="search-input" placeholder="Search notes by subject, title or keywords..." type="text"/>
+        </div>
+        <div class="relative">
+          <select class="w-full min-h-[48px] px-3.5 pr-10 rounded-xl bg-surface-container-lowest border border-surface-container-high text-on-surface font-body-md focus:outline-none focus:ring-2 focus:ring-primary appearance-none cursor-pointer shadow-sm" id="subject-filter">
+            <option value="ALL">All Subjects</option>
+          </select>
+          <span class="material-symbols-outlined pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">expand_more</span>
+        </div>
+      </div>
+
+      <!-- Notes Count & Refresh -->
+      <div class="flex items-center justify-between pt-2 border-b border-surface-container-high pb-2">
+        <span class="font-label-md text-label-md text-on-surface-variant font-semibold" id="notes-count">Loading notes...</span>
+        <button class="font-label-sm text-label-sm text-primary hover:underline flex items-center gap-1 cursor-pointer" onclick="fetchLiveNotes()">
+          <span class="material-symbols-outlined text-[16px]">sync</span> Refresh Notes
+        </button>
+      </div>
+
+      <!-- Live Dynamic Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md" id="notes-grid">
+        <!-- Cards inserted dynamically -->
+      </div>
+
+      <!-- Empty State -->
+      <div class="hidden flex-col items-center justify-center text-center p-space-xl bg-surface-container-lowest rounded-xl shadow-sm border border-surface-container-high" id="empty-state">
+        <div class="w-12 h-12 rounded-full bg-surface-container-high text-primary flex items-center justify-center mb-space-xs">
+          <span class="material-symbols-outlined text-[26px]">folder_off</span>
+        </div>
+        <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">No Notes Found</h3>
+        <p class="font-body-sm text-body-sm text-on-surface-variant mt-1 max-w-sm">Abhi tak koi notes upload nahi hue hain ya filter se koi match nahi mila.</p>
+        <a class="mt-space-md min-h-[40px] px-space-md rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-primary font-label-md text-label-md font-semibold transition-colors inline-flex items-center gap-1.5" href="upload.html">
+          <span class="material-symbols-outlined text-[18px]">upload</span> Upload First Note
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Backend Integration Script -->
+  <script>
+    let allNotes = [];
+
+    const notesGrid = document.getElementById('notes-grid');
+    const emptyState = document.getElementById('empty-state');
+    const notesCount = document.getElementById('notes-count');
+    const searchInput = document.getElementById('search-input');
+    const subjectFilter = document.getElementById('subject-filter');
+
+    function getFileTypeBadge(filename) {
+      const ext = (filename || '').split('.').pop().toLowerCase();
+      if (['docx', 'doc'].includes(ext)) {
+        return { icon: 'article', label: 'DOCX', bg: 'bg-primary-container text-on-primary' };
+      }
+      if (['pptx', 'ppt'].includes(ext)) {
+        return { icon: 'slideshow', label: 'PPTX', bg: 'bg-tertiary-container text-on-tertiary' };
+      }
+      return { icon: 'picture_as_pdf', label: 'PDF', bg: 'bg-primary text-on-primary' };
+    }
+
+    function renderNotesCards(notes) {
+      notesCount.textContent = `${notes.length} Note${notes.length === 1 ? '' : 's'} Available`;
+
+      if (notes.length === 0) {
+        notesGrid.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+      notesGrid.innerHTML = notes.map(note => {
+        const badge = getFileTypeBadge(note.storedFileName || note.originalFileName);
+        return `
+          <div class="flex flex-col justify-between bg-surface-container-lowest rounded-xl p-space-md shadow-sm border border-surface-container-high hover:shadow-md transition-shadow">
+            <div>
+              <div class="flex items-center justify-between gap-space-xs mb- space-xs">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-fixed-variant font-label-sm text-label-sm font-semibold truncate max-w-[180px]">
+                  ${note.subject}
+                </span>
+                <span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-0.5 shrink-0">
+                  <span class="material-symbols-outlined text-[14px]">calendar_today</span> ${note.uploadDate || 'Recent'}
+                </span>
+              </div>
+
+              <div class="flex items-start gap-space-sm my-2">
+                <div class="w-10 h-10 rounded-lg ${badge.bg} flex items-center justify-center shrink-0 shadow-xs">
+                  <span class="material-symbols-outlined text-[20px]">${badge.icon}</span>
+                </div>
+                <div class="min-w-0 flex-1">
+                  <h3 class="font-headline-sm text-[16px] text-on-surface font-semibold leading-snug line-clamp-2" title="${note.title}">
+                    ${note.title}
+                  </h3>
+                  <p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Size: ${note.fileSize || 'Standard'}</p>
+                </div>
+              </div>
+
+              ${note.description ? `
+                <p class="font-body-sm text-body-sm text-on-surface-variant bg-surface-container-low p-2 rounded-lg line-clamp-2 mb-3">
+                  ${note.description}
+                </p>
+              ` : '<div class="mb-3"></div>'}
+            </div>
+
+            <!-- Direct Download link saving offline -->
+            <a href="${note.fileUrl}" download="${note.originalFileName || 'notes'}" class="w-full min-h-[44px] rounded-lg bg-surface-container-high hover:bg-primary text-primary hover:text-on-primary font-label-md text-label-md font-semibold transition-colors flex items-center justify-center gap-1.5 shadow-xs">
+              <span class="material-symbols-outlined text-[18px]">download</span>
+              <span>Download Note</span>
+            </a>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function populateFilterDropdown(notes) {
+      const subjects = Array.from(new Set(notes.map(n => n.subject).filter(Boolean)));
+      const curr = subjectFilter.value;
+      subjectFilter.innerHTML = '<option value="ALL">All Subjects</option>' +
+        subjects.map(s => `<option value="${s}">${s}</option>`).join('');
+      if (subjects.includes(curr)) subjectFilter.value = curr;
+    }
+
+    function filterNotes() {
+      const query = searchInput.value.toLowerCase().trim();
+      const selected = subjectFilter.value;
+
+      const filtered = allNotes.filter(item => {
+        const matchQuery = (item.title && item.title.toLowerCase().includes(query)) ||
+                           (item.subject && item.subject.toLowerCase().includes(query)) ||
+                           (item.description && item.description.toLowerCase().includes(query));
+        const matchSub = (selected === 'ALL') || (item.subject === selected);
+        return matchQuery && matchSub;
+      });
+
+      renderNotesCards(filtered);
+    }
+
+    async function fetchLiveNotes() {
+      notesCount.textContent = 'Fetching latest notes...';
+      try {
+        const res = await fetch('/api/notes');
+        if (!res.ok) throw new Error('API failed');
+        allNotes = await res.json();
+        populateFilterDropdown(allNotes);
+        filterNotes();
+      } catch (err) {
+        notesCount.textContent = 'Server Offline';
+        notesGrid.innerHTML = `
+          <div class="col-span-full p-4 bg-error-container text-on-error-container rounded-xl text-center">
+            <p class="font-semibold text-sm">Server connect nahi hua!</p>
+            <p class="text-xs mt-1">Terminal me <code>node server.js</code> check karein.</p>
+          </div>
+        `;
+      }
+    }
+
+    searchInput.addEventListener('input', filterNotes);
+    subjectFilter.addEventListener('change', filterNotes);
+    window.addEventListener('DOMContentLoaded', fetchLiveNotes);
+  </script>
+
+</body>
+</html>
